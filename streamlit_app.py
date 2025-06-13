@@ -33,15 +33,14 @@ if ingredients_list:
 
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
-
-        # Mostrar encabezado por fruta
+    
+        # Mostrar encabezado con el nombre de la fruta
         st.subheader(f"{fruit_chosen} Nutrition Information")
-
-        # Llamada a la API externa
-        url = f"https://my.smoothiefroot.com/api/fruit/{fruit_chosen}"
+    
+        # Construir la URL correctamente con el nombre de la fruta
+        url = f"https://my.smoothiefroot.com/api/fruit/{fruit_chosen.lower()}"  # Convertir a minúsculas si es necesario
         response = requests.get(url)
-
-        # Validar si la fruta está disponible
+    
         if response.status_code == 200:
             try:
                 sf_df = st.dataframe(data=response.json(), use_container_width=True)
@@ -49,6 +48,7 @@ if ingredients_list:
                 st.error("⚠️ Error displaying the fruit data.")
         else:
             st.dataframe({"value": ["Sorry, that fruit is not in our database."]})
+
 
     # Botón para enviar la orden
     if st.button("Submit Order"):
