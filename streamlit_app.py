@@ -41,6 +41,7 @@ if ingredients_list:
 
         # Obtenemos el valor correcto para usar en la API
         search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + search_on)
 
         # Título y llamada a la API
         st.subheader(fruit_chosen + ' Nutrition Information')
